@@ -10,9 +10,9 @@ Zimbra Prometheus Exporter + Grafana Dashboard
 
 
 The following environment is tested:
-* Ubuntu 18.04
-* Zimbra 8.8.15 
-* Python 3.6 & PIP3
+* CentOS 7
+* Zimbra 8.8.8 
+* Python 3.6 & pip3
 * Prometheus 2.18
 * Grafana 8.2.5
 
@@ -24,9 +24,12 @@ The following environment is tested:
   
 
 ```
+yum install python3-pip
 pip3 install flask
 pip3 install prometheus_client
 pip3 install psutil
+pip3 install requests
+pip3 install waitress
 
 wget https://raw.githubusercontent.com/jasoncheng7115/zimbra_dashboards/main/zimbra_exporter.py -O /opt/zimbra_exporter.py
 chmod +x /opt/zimbra_exporter.py
@@ -44,7 +47,7 @@ Required Modified variables in the zimbra_exporter.py:
 ```
 PORT_EXPORTER = 9093
 
-MAILSERVER = 'mail.zimbra.domain'
+MAILSERVER = 'mail.domain.xy'
 EXCLUDE_DOMAIN = '' # If you want to filter out a specific domain, please add it here.
 
 PORT_SMTP = '25'
@@ -64,7 +67,7 @@ PORT_WEBCLIENT = '443'
     scrape_timeout: 30s
     honor_labels: true
     static_configs:
-    - targets: ['zimbraserver:9093']
+    - targets: ['mail.domain.xy:9093']
 ```
 
 
